@@ -39,6 +39,14 @@ export function SidebarView({ activeView, setActiveView }: SidebarProps) {
         <span>📝</span>
         {isHovered ? <span>Notes</span> : null}
       </div>
+      
+      <div
+        className={`nav-item ${activeView === "bookmarks" ? "active" : ""}`}
+        onClick={() => setActiveView("bookmarks")}
+      >
+        <span>📚</span>
+        {isHovered ? <span>Bookmarks</span> : null}
+      </div>
     </div>
   );
 }

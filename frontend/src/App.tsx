@@ -3,9 +3,10 @@ import "./App.css";
 import { KanbanView, KanbanTask } from "./views/Kanban";
 import { HomeView } from "./views/Home";
 import { NotesView } from "./views/Notes";
+import { BookmarksView } from "./views/Bookmarks";
 import { SidebarView } from "./views/Sidebar";
 
-export type View = "home" | "kanban" | "notes"
+export type View = "home" | "kanban" | "notes" | "bookmarks"
 
 function App() {
   const [activeView, setActiveView] = useState<View>("home");
@@ -25,6 +26,7 @@ function App() {
           <KanbanView tasks={kanbanTasks} setTasks={updateKanbanTasks} />
         )}
         {activeView === "notes" && <NotesView />}
+        {activeView === 'bookmarks' && <BookmarksView />}
       </div>
     </div>
   );
