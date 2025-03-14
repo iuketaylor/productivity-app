@@ -185,7 +185,7 @@ export function KanbanView({tasks, setTasks}: KanbanViewProps) {
           display: "flex",
           gap: "20px",
           overflowX: "auto",
-          height: "calc(100vh - 180px)",
+          height: "70vh",
           padding: "10px 0",
         }}
       >
@@ -193,7 +193,7 @@ export function KanbanView({tasks, setTasks}: KanbanViewProps) {
           <div
             key={column.id}
             style={{
-              minWidth: "300px",
+              minWidth: "250px",
               width: "32%",
               backgroundColor: "white",
               borderRadius: "8px",
