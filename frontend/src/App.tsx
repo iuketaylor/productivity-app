@@ -5,7 +5,7 @@ import { HomeView } from "./views/Home";
 import { NotesView } from "./views/Notes";
 import { SidebarView } from "./views/Sidebar";
 
-export type View = "home" | "kanban" | "notes" | "retro";
+export type View = "home" | "kanban" | "notes"
 
 function App() {
   const [activeView, setActiveView] = useState<View>("home");
