@@ -3,17 +3,13 @@ import "./App.css";
 import { KanbanView, KanbanTask } from "./views/Kanban";
 import { HomeView } from "./views/Home";
 import { NotesView } from "./views/Notes";
+import { SidebarView } from "./views/Sidebar";
 
-type View = "home" | "kanban" | "notes";
+export type View = "home" | "kanban" | "notes" | "retro";
 
 function App() {
-  const [isHovered, setIsHovered] = useState<boolean>(false);
   const [activeView, setActiveView] = useState<View>("home");
   const [kanbanTasks, setKanbanTask] = useState<KanbanTask[]>([]);
-
-  const handleNavigation = (view: View) => {
-    setActiveView(view);
-  };
 
   const updateKanbanTasks = (newTasks: KanbanTask[]) => {
     setKanbanTask(newTasks);
@@ -21,36 +17,7 @@ function App() {
 
   return (
     <div id="app">
-      <div
-        id="sidebar"
-        className={isHovered ? "sidebar-expanded" : "sidebar-collapsed"}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        <div
-          className={`nav-item ${activeView === "home" ? "active" : ""}`}
-          onClick={() => handleNavigation("home")}
-        >
-          <span>🏠</span>
-          {isHovered ? <span>Home</span> : null}
-        </div>
-
-        <div
-          className={`nav-item ${activeView === "kanban" ? "active" : ""}`}
-          onClick={() => handleNavigation("kanban")}
-        >
-          <span>📋</span>
-          {isHovered ? <span>Kanban Board</span> : null}
-        </div>
-
-        <div
-          className={`nav-item ${activeView === "notes" ? "active" : ""}`}
-          onClick={() => handleNavigation("notes")}
-        >
-          <span>📝</span>
-          {isHovered ? <span>Notes</span> : null}
-        </div>
-      </div>
+      <SidebarView activeView={activeView} setActiveView={setActiveView} />
 
       <div id="mainContent">
         {activeView === "home" && <HomeView />}
