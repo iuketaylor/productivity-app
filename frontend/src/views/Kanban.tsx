@@ -40,7 +40,7 @@ export function KanbanView({tasks, setTasks}: KanbanViewProps) {
   };
 
   const handleDrop = (
-    column: "todo" | "in-progress" | "done",
+    column: KanbanTask['column'],
     taskId?: string,
   ) => {
     if (!draggedItem.current) return;
@@ -153,7 +153,7 @@ export function KanbanView({tasks, setTasks}: KanbanViewProps) {
     setTasks(updatedTasks);
   };
 
-  const getTasksByColumn = (column: "todo" | "in-progress" | "done") => {
+  const getTasksByColumn = (column: KanbanTask['column']) => {
     return tasks
       .filter((task) => task.column === column)
       .sort((a, b) => a.order - b.order);
@@ -165,9 +165,9 @@ export function KanbanView({tasks, setTasks}: KanbanViewProps) {
       id: "in-progress",
       title: "In Progress",
       color: "#FF9800",
-      bgColor: "#E1F5FE",
+      bgColor: "#FFF9C4",
     },
-    { id: "done", title: "Done", color: "#4CAF50", bgColor: "#E8F5E9" },
+    { id: "done", title: "Done", color: "#4CAF50", bgColor: "#FFF9C4" },
   ];
 
   return (
@@ -310,6 +310,7 @@ export function KanbanView({tasks, setTasks}: KanbanViewProps) {
                       position: "relative",
                       whiteSpace: "pre-wrap",
                       opacity: draggedItem.current?.id === task.id ? 0.6 : 1,
+                      textDecoration: column.id === 'done' ? 'line-through' : ''
                     }}
                   >
                     {editingTaskId !== task.id && (
