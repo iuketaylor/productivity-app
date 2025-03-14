@@ -4,7 +4,7 @@ export interface KanbanTask {
   id: string;
   text: string;
   column: "todo" | "in-progress" | "done";
-  order: number;
+  position: number;
 }
 
 interface KanbanViewProps {
@@ -55,35 +55,35 @@ export function KanbanView({tasks, setTasks}: KanbanViewProps) {
         -1,
         ...updatedTasks
           .filter((task) => task.column === column)
-          .map((task) => task.order),
+          .map((task) => task.position),
       );
 
       updatedTasks[draggedItemIndex] = {
         ...updatedTasks[draggedItemIndex],
         column,
-        order: maxOrder + 1,
+        position: maxOrder + 1,
       };
     } else if (taskId && taskId !== draggedItem.current.id) {
       const dropTargetIndex = updatedTasks.findIndex(
         (task) => task.id === taskId,
       );
 
-      const sourceOrder = draggedItem.current.order;
-      const targetOrder = updatedTasks[dropTargetIndex].order;
+      const sourceOrder = draggedItem.current.position;
+      const targetOrder = updatedTasks[dropTargetIndex].position;
 
       updatedTasks.forEach((task) => {
         if (task.column === column) {
           if (sourceOrder < targetOrder) {
-            if (task.order > sourceOrder && task.order <= targetOrder) {
-              task.order--;
+            if (task.position > sourceOrder && task.position <= targetOrder) {
+              task.position--;
             } else if (task.id === draggedItem.current?.id) {
-              task.order = targetOrder;
+              task.position = targetOrder;
             }
           } else {
-            if (task.order < sourceOrder && task.order >= targetOrder) {
-              task.order++;
+            if (task.position < sourceOrder && task.position >= targetOrder) {
+              task.position++;
             } else if (task.id === draggedItem.current?.id) {
-              task.order = targetOrder;
+              task.position = targetOrder;
             }
           }
         }
@@ -103,14 +103,14 @@ export function KanbanView({tasks, setTasks}: KanbanViewProps) {
           -1,
           ...tasks
             .filter((task) => task.column === "todo")
-            .map((task) => task.order),
+            .map((task) => task.position),
         );
 
         const newTask: KanbanTask = {
           id: Date.now().toString(),
           text: newTaskText.trim(),
           column: "todo",
-          order: maxOrder + 1,
+          position: maxOrder + 1,
         };
         setTasks([...tasks, newTask]);
         setNewTaskText("");
@@ -156,7 +156,7 @@ export function KanbanView({tasks, setTasks}: KanbanViewProps) {
   const getTasksByColumn = (column: KanbanTask['column']) => {
     return tasks
       .filter((task) => task.column === column)
-      .sort((a, b) => a.order - b.order);
+      .sort((a, b) => a.position - b.position);
   };
 
   const columns = [

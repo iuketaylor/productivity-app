@@ -16,6 +16,7 @@ export function SidebarView({ activeView, setActiveView }: SidebarProps) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
+      
       <div
         className={`nav-item ${activeView === "home" ? "active" : ""}`}
         onClick={() => setActiveView("home")}
@@ -46,6 +47,14 @@ export function SidebarView({ activeView, setActiveView }: SidebarProps) {
       >
         <span>📚</span>
         {isHovered ? <span>Bookmarks</span> : null}
+      </div>
+      
+      <div
+        className={`nav-item ${activeView === "whiteboard" ? "active" : ""}`}
+        onClick={() => setActiveView("whiteboard")}
+      >
+        <span>✍️</span>
+        {isHovered ? <span>Whiteboard</span> : null}
       </div>
     </div>
   );
